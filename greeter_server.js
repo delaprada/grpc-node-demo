@@ -1,21 +1,5 @@
-const path = require('path');
 const grpc = require('grpc');
-const protoLoader = require('@grpc/proto-loader');
-
-// 从proto文件加载服务描述符
-const PROTO_PATH = path.resolve(__dirname, 'protos/HelloWorld.proto');
-const packageDefinition = protoLoader.loadSync(
-  PROTO_PATH,
-  {
-    keepCase: true,
-    longs: String,
-    enums: String,
-    defaults: true,
-    oneofs: true
-  }
-);
-
-const hello_proto = grpc.loadPackageDefinition(packageDefinition).helloworld;
+const hello_proto = require('./proto');
 
 // SayHello的实现，调用call.request为protobuf文件的请求体，将返回体通过callback函数传回至客户端
 function sayHello2(call, callback) {
